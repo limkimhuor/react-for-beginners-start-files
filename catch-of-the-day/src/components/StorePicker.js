@@ -1,14 +1,17 @@
 import React from "react";
-import { getFunName } from "../helpers"
+import Proptypes from "prop-types";
+import { getFunName } from "../helpers";
 class StorePicker extends React.Component {
-
   constructor() {
-    super(); // must have this 
+    super(); // must have this
     // console.log("gone create a component")
     this.goToStore = this.goToStore.bind(this);
   }
 
   myInput = React.createRef();
+  static propTypes = {
+    history: Proptypes.object
+  };
   goToStore = event => {
     // 1. Stop the form from submitting
     event.preventDefault();
@@ -21,7 +24,7 @@ class StorePicker extends React.Component {
     const storeName = this.myInput.value.value;
     // 3. change the page to /store/whatever-they-entered
     this.props.history.push(`/store/${storeName}`);
-  }
+  };
   // Run as component did mount
   // componentDidMount() {
   //   console.log('mounted!')
@@ -31,16 +34,16 @@ class StorePicker extends React.Component {
     return (
       <form className="store-selector" onSubmit={this.goToStore}>
         <h2>Please Enter A Store</h2>
-        <input 
-          type="text" 
+        <input
+          type="text"
           ref={this.myInput}
-          required 
-          placeholder="Store Name" 
-          defaultValue={getFunName()} />
-          <button type="submit">Visit Store -></button>
+          required
+          placeholder="Store Name"
+          defaultValue={getFunName()}
+        />
+        <button type="submit">Visit Store -></button>
       </form>
     );
   }
-
 }
 export default StorePicker;
